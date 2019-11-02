@@ -1,0 +1,90 @@
+@import url(https://fonts.googleapis.com/css?family=Red+Hat+Text);
+body {
+    font-family: 'Red Hat Text';
+}
+h1 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+form, ul > div {
+    margin: auto;
+    width: 40%;
+    border: 1px solid lightgray;
+    padding: 1em;
+}
+
+#inputForm {
+	/* display: none; */
+	text-align: center;
+}
+
+
+
+.formTitle {
+    text-align: left;
+    font-size: 2em;
+    font-weight: bold;
+    margin: auto;
+}
+.aFormName {
+    width: 70%;
+    margin: auto;   
+}
+.addArtistFormButton {
+	width: 13%;
+}
+.searchArtistClassButton {
+    width: 13%;
+}
+.artistInfo, .artistImage {
+    display: inline-block;
+    margin-right: 1em;
+}
+ul {
+    padding: 0 0 0 0;
+}
+ul > div {
+    width: 30%;
+}
+.artist:hover {
+	background-color: lightgray;
+	cursor: pointer;
+}
+.artistTitle {
+	width: 280px;
+	font-weight: bold;
+	word-wrap: break-word;
+}
+.artistInfo {
+    vertical-align: top;
+}
+.artistDesc {
+	width: 280px;
+	word-wrap: break-word;
+}
+.btn {
+    float: right;
+}
+.imageProperty {
+    width: 72px;
+    height: auto;
+}
+input {
+    text-align: center;
+}
+.addArtistLink {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+/* #baseDiv {
+    display: block;
+} */

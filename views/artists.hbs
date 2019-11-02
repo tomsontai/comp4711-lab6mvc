@@ -1,0 +1,39 @@
+<div id="baseDiv">
+    <ul id="ulElement">
+
+        {{#each artist}}
+        <form method="POST" action="/delete/{{this.id}}">
+            <div class="artists">
+                <div class="artistImage">
+                    <img src="{{this.imageurl}}">
+                </div>
+                <div class="artistInfo">
+                    <div class="artistTitle">
+                        {{this.name}}
+                    </div>
+                    <div class="artistDesc">
+                        {{this.about}}
+                    </div>
+                </div>
+                <!-- a href="/delete/{{this.id}}">Delete</a-->
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+        {{/each}}
+    </ul>
+</div> 
+
+{{!-- TEST DATA
+<div class="artist">
+    <div class="artistImage">
+        <img src="https://randomuser.me/api/portraits/med/men/87.jpg">
+    </div>
+    <div class="artistInfo">
+        <div class="artistTitle">
+            Barot Bellingham
+        </div>
+        <div class="artistDesc">
+            Royal Academy of Painting and Sculpture
+        </div>
+    </div>
+</div> --}}
