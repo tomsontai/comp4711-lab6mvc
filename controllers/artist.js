@@ -52,3 +52,23 @@ exports.postAddArtist = (req, res, next) => {
 
     // NEED THIS ANYMORE??? ^^^^
 }
+
+// SEARCH NOT WORKING !!!! 
+exports.searchArtist = (req, res, next) => {
+    console.log("==== Search ====");
+    let a_name = req.body.name;
+    let SearchResult = artistModel.search(a_name);
+    res.render('artists', {artist: SearchResult });
+    //res.render('artistadd');
+    //res.redirect(301, '/artists');
+}
+
+exports.deleteArtist = (req, res, next) => {
+    console.log("============Get Delete Artist=================");
+    console.log(req.params.id);
+    let id = Number(req.params.id);
+    artistModel.delete(id); 
+ 
+    // console.log(artistModel.getall());
+    res.redirect(301, '/artists');
+}

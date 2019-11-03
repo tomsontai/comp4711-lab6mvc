@@ -62,21 +62,29 @@ router.get('/delete/:id', (req,res) => {
    res.redirect(301, '/artists');
 });
 
-router.post('/delete/:id', (req,res) => {
-   console.log("============Get Delete Artist=================");
-   console.log(req.params.id);
-   let id = Number(req.params.id);
-   mod.delete(id); 
 
-   // console.log(mod.getall());
-   res.redirect(301, '/artists');
-});
 
 router.get('/artists', artistController.getAllArtists);
 
 router.get('/artist/add', artistController.getAddArtist);
 
-router.post('/artists/add', artistController.postAddArtist);
+router.post('/artists', artistController.postAddArtist);
+
+// Search not working ?
+router.post('/artists/search', artistController.searchArtist);
+
+router.post('/delete/:id', artistController.deleteArtist);
+
+// router.post('/delete/:id', (req,res) => {
+//    console.log("============Get Delete Artist=================");
+//    console.log(req.params.id);
+//    let id = Number(req.params.id);
+//    mod.delete(id); 
+
+//    // console.log(mod.getall());
+//    res.redirect(301, '/artists');
+// });
+
 // // Renders all the artists. Need to modify to get from database. 
 // router.get('/artists', (req,res) => {
 // //    client.connect((err) => {
@@ -108,59 +116,59 @@ router.post('/artists/add', artistController.postAddArtist);
 
 
  // QUERY?? 
-router.post('/artists/search', (req,res) => {
-   console.log("==== Search ====");
-   let a_name = req.body.name;
-   let SearchResult = mod.search(a_name);
-   res.render('artists', {artist: SearchResult });
-   //res.render('artistadd');
-   //res.redirect(301, '/artists');
-}); 
+// router.post('/artists/search', (req,res) => {
+//    console.log("==== Search ====");
+//    let a_name = req.body.name;
+//    let SearchResult = mod.search(a_name);
+//    res.render('artists', {artist: SearchResult });
+//    //res.render('artistadd');
+//    //res.redirect(301, '/artists');
+// }); 
 
 
 
 // Add to database
- router.post('/artists', (req, res) => {
-    let a_name = req.body.name;
-    let a_about = req.body.about;
-    let a_imageURL = req.body.imageURL;
+//  router.post('/artists', (req, res) => {
+//     let a_name = req.body.name;
+//     let a_about = req.body.about;
+//     let a_imageURL = req.body.imageURL;
 
-     let count = mod.count;
+//      let count = mod.count;
 
-    let aObject = {
-       id: count,
-       name: a_name,
-       about: a_about,
-       imageurl: a_imageURL
-    }
+//     let aObject = {
+//        id: count,
+//        name: a_name,
+//        about: a_about,
+//        imageurl: a_imageURL
+//     }
 
-   //    client.connect((err) => {
-   //    assert.equal(null, err);
-   //    console.log("DB connection established.");
-   //    const db = client.db(databaseName);
+//    //    client.connect((err) => {
+//    //    assert.equal(null, err);
+//    //    console.log("DB connection established.");
+//    //    const db = client.db(databaseName);
       
-   //    db.collection(collectionName).insertOne(aObject, (err) => {
-   //        if (err) {
-   //            console.log("post error");
-   //            console.log(err);
-   //            res.sendStatus(500);
-   //        } else {
-   //            console.log("post successful");
-   //            //res.sendStatus(200);
-   //            res.redirect(301, '/artists');
+//    //    db.collection(collectionName).insertOne(aObject, (err) => {
+//    //        if (err) {
+//    //            console.log("post error");
+//    //            console.log(err);
+//    //            res.sendStatus(500);
+//    //        } else {
+//    //            console.log("post successful");
+//    //            //res.sendStatus(200);
+//    //            res.redirect(301, '/artists');
               
-   //        }
-   //    });
-   // });
+//    //        }
+//    //    });
+//    // });
 
-   // NEED THIS ANYMORE???? vvvv
-    mod.add(aObject);
+//    // NEED THIS ANYMORE???? vvvv
+//     mod.add(aObject);
 
-    console.log(mod.getall());
-    res.redirect(301, '/artists');
+//     console.log(mod.getall());
+//     res.redirect(301, '/artists');
 
-    // NEED THIS ANYMORE??? ^^^^
-  });
+//     // NEED THIS ANYMORE??? ^^^^
+//   });
 
 
  // Defines a custom 404 Page and we use app.use because
