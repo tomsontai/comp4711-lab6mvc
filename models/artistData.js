@@ -86,13 +86,30 @@ function initializeArray() {
 
 }
 
-function addArtists(e) {
-    e.id = count;
-    count = count + 1;
-    a.push(e); // probably don't need this anymore. Need to remove the array object "a"
+function addArtists(e, callback) {
+    client.connect((err) => {
+        assert.equal(null, err);
+        console.log("DB connection established.");
+        const db = client.db(databaseName);
 
-    obj.artists.push(e);
-    var jsonObj =   JSON.stringify(obj);
+        db.collection(collectionName).insertOne(e, (err) => {
+            if (err) {
+                console.log("post error");
+                console.log(err);
+                callback;
+            } else {
+                console.log("post successful");
+                callback;
+            }
+        });
+    });
+
+    // e.id = count;
+    // count = count + 1;
+    // a.push(e); // probably don't need this anymore. Need to remove the array object "a"
+
+    // obj.artists.push(e);
+    // var jsonObj =   JSON.stringify(obj);
     
     // fs.writeFile("mylocalfile.json", jsonObj, function(err) {
     //     if (err) throw err;

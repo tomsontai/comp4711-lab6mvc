@@ -18,6 +18,15 @@ exports.getAddArtist = (req, res, next) => {
 }
 
 exports.postAddArtist = (req, res, next) => {
+    artistModel.add(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("post artist");
+            res.redirect(301, '/artists');
+        }
+    })
+
     let a_name = req.body.name;
     let a_about = req.body.about;
     let a_imageURL = req.body.imageURL;
