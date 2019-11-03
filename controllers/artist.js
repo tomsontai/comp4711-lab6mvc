@@ -40,32 +40,22 @@ exports.postAddArtist = (req, res, next) => {
        imageurl: a_imageURL
     }
 
-   //    client.connect((err) => {
-   //    assert.equal(null, err);
-   //    console.log("DB connection established.");
-   //    const db = client.db(databaseName);
-      
-   //    db.collection(collectionName).insertOne(aObject, (err) => {
-   //        if (err) {
-   //            console.log("post error");
-   //            console.log(err);
-   //            res.sendStatus(500);
-   //        } else {
-   //            console.log("post successful");
-   //            //res.sendStatus(200);
-   //            res.redirect(301, '/artists');
-              
-   //        }
-   //    });
-   // });
-
-   // NEED THIS ANYMORE???? vvvv
     artistModel.add(aObject);
 
     // console.log(artistModel.getall());
     res.redirect(301, '/artists');
 
     // NEED THIS ANYMORE??? ^^^^
+}
+
+exports.deleteArtist = (req, res, next) => {
+    console.log("============Get Delete Artist=================");
+    console.log(req.params.id);
+    // let id = Number(req.params.id);
+    artistModel.delete(req.params.id); 
+    
+    // console.log(artistModel.getall());
+    res.redirect(301, '/artists');
 }
 
 // SEARCH NOT WORKING !!!! 
@@ -78,12 +68,3 @@ exports.searchArtist = (req, res, next) => {
     //res.redirect(301, '/artists');
 }
 
-exports.deleteArtist = (req, res, next) => {
-    console.log("============Get Delete Artist=================");
-    console.log(req.params.id);
-    let id = Number(req.params.id);
-    artistModel.delete(id); 
- 
-    // console.log(artistModel.getall());
-    res.redirect(301, '/artists');
-}

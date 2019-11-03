@@ -147,11 +147,30 @@ function getCount() {
 }
 
 function deleteArtist(id) {
-     for (var i = 0; i < a.length; i++) {
-        if (a[i].id == id) {
-            a.splice(i, 1);
+    // let myquery = { _id: id };
+    console.log(id);
+    MongoClient.connect(uri, function(err, db) {
+        if (err)
+            throw err;
+        else {
+            console.log("Successfully connected to db");
+            let dbo = db.db(databaseName);
+            let myquery = { _id: id };
+            dbo.collection(collectionName).deleteOne(myquery, function(err, obj){
+                if (err) throw err;
+                console.log("1 document deleted");
+                db.close();
+            });
         }
-    }
+    });
+
+
+
+    //  for (var i = 0; i < a.length; i++) {
+    //     if (a[i].id == id) {
+    //         a.splice(i, 1);
+    //     }
+    // }
  }
 
  function searchArtists(matchString) {
@@ -175,29 +194,29 @@ module.exports = {
     search: searchArtists
 }
 
-function setArtistDataToPOST() {
-    let artistName = document.getElementById("name").value;
-    let artistAbout = document.getElementById("about").value;
-    let artistImageURL = document.getElementById("imageURL").value;
+// function setArtistDataToPOST() {
+//     let artistName = document.getElementById("name").value;
+//     let artistAbout = document.getElementById("about").value;
+//     let artistImageURL = document.getElementById("imageURL").value;
 
-    let artistData = {name : artistName , about : artistAbout, imageURL : artistImageURL};
+//     let artistData = {name : artistName , about : artistAbout, imageURL : artistImageURL};
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify(artistData)
-    };s
+//     const options = {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }, 
+//         body: JSON.stringify(artistData)
+//     };s
 
-    fetch('/artists', options);
-    // window.location.href = "leaderboard.html";
+//     fetch('/artists', options);
+//     // window.location.href = "leaderboard.html";
 
-    // players.push(score);
+//     // players.push(score);
 
-    // localStorage.players = JSON.stringify(players);
-}
+//     // localStorage.players = JSON.stringify(players);
+// }
 
-function getAllArtistFromDB () {
+// function getAllArtistFromDB () {
 
-}
+// }
