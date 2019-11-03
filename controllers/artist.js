@@ -57,14 +57,27 @@ exports.deleteArtist = (req, res, next) => {
     // console.log(artistModel.getall());
     res.redirect(301, '/artists');
 }
-
+//5dbde85946e2d8881bd095f5,
 // SEARCH NOT WORKING !!!! 
 exports.searchArtist = (req, res, next) => {
     console.log("==== Search ====");
     let a_name = req.body.name;
-    let SearchResult = artistModel.search(a_name);
-    res.render('artists', {artist: SearchResult });
+    artistModel.search(a_name, function(Artists) {
+        // if (err){
+        //     console.log("Error! : " + err);
+        //     res.render('artists');
+        // } else {
+            console.log("All artists:")
+            console.log(Artists);
+            res.render('artists', {artist: Artists });
+        // }
+
+    });
+
+    
+
+    // res.render('artists', {artist: SearchResult });
     //res.render('artistadd');
-    //res.redirect(301, '/artists');
+    // res.redirect(301, '/artists');
 }
 

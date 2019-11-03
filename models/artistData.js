@@ -174,15 +174,48 @@ function deleteArtist(id) {
     // }
  }
 
- function searchArtists(matchString) {
-    let arr = [];
-    for (var i = 0; i < a.length; i++) {
-         if (a[i].name.toUpperCase().indexOf(matchString.toUpperCase()) !== -1) {
-             arr.push(a[i]);
+ function searchArtists(matchString, callback) {
+
+    MongoClient.connect(uri, function(err, db) {
+        if (err)
+            throw err;
+        else {
+            console.log("Successfully connected to db");
+            let dbo = db.db(databaseName);
+            // let myquery = { _id: new mongodb.ObjectId(id) };
+            // dbo.collection(collectionName).findOne({"name" : {$regex : ".*" + matchString + ".*"}}).toArray(function(err, artists) {
+            // dbo.collection(collectionName).find({name: /matchString/}).toArray(function(err, artists) {
+            dbo.collection(collectionName).find({"name" : {$regex : ".*" + matchString + ".*"}}).toArray(function(err, artists) {
+               
+                    console.log("Search completed");
+                    console.log(artists);
+                    callback(artists);
+                    db.close();
+                
+            });
         }
-    }
+    });
+
+    // client.connect(err => { 
+    //     collection = client.db(databaseName).collection(collectionName);
+    //     // collection.findOne({"name" : {$regex : ".*" + matchString + ".*"}}).toArray(function(err, artists) {
+
+    //     collection.findOne({"name" : {$regex : ".*" + matchString + ".*"}}).toArray(function(err, artists) {
+    //         if (err) throw err;
+    //     console.log(result);
+    //     db.close();
+    //     });
+
+    // });
+
+    // let arr = [];
+    // for (var i = 0; i < a.length; i++) {
+    //      if (a[i].name.toUpperCase().indexOf(matchString.toUpperCase()) !== -1) {
+    //          arr.push(a[i]);
+    //     }
+    // }
     
-    return arr;
+    // return arr;
  }
 
 module.exports = {
