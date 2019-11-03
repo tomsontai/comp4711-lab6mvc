@@ -1,6 +1,7 @@
 const express = require('express');
 let app = express();
-let mod = require('../artistData');
+let mod = require('../models/artistData');
+let artistController = require("../controllers/artist");
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
@@ -9,7 +10,7 @@ const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/tes
 const router = express.Router();
 const client = new MongoClient(uri, { 
    useUnifiedTopology: true,
-   useNewUrlParser: true 
+   useNewUrlParser: true
  });
 
  
@@ -39,7 +40,7 @@ const client = new MongoClient(uri, {
  
  //Middleware
  app.use(function (req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
+   //res.header("Access-Control-Allow-Origin", "*");
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    next();
  });
@@ -71,42 +72,39 @@ router.post('/delete/:id', (req,res) => {
    res.redirect(301, '/artists');
 });
 
-// Renders all the artists. Need to modify to get from database. 
-router.get('/artists', (req,res) => {
-   client.connect((err) => {
-      assert.equal(null, err);
-      console.log("DB connection established.");
-      const collection = client.db(databaseName).collection(collectionName);
-      collection.find({}).toArray(function(err, result) {
-         if (err) throw err;
-            console.log(result);
-         collection.close();
-      });
+router.get('/artists', artistController.getAllArtists);
 
-      res.render('artists');
-      // collection.find({}, { sort: { score: -1 } }).toArray((err, data) => {
-      //     if (err) {
-      //         console.log("get error");
-      //         console.log(err);
-      //         res.sendStatus(500);
-      //     } else {
-      //         console.log("get successful");
-      //       //   res.json(data);
-              
-      //     }
-      // });
-  });
+router.get('/artist/add', artistController.getAddArtist);
 
-   //  let Artists = mod.getall();
-   // //  console.log("All artists:")
-   //  console.log(Artists);
-   //  res.render('artists', {artist: Artists });
-});
+router.post('/artists/add', artistController.postAddArtist);
+// // Renders all the artists. Need to modify to get from database. 
+// router.get('/artists', (req,res) => {
+// //    client.connect((err) => {
+// //       assert.equal(null, err);
+// //       console.log("DB connection established.");
+// //       // const collection = client.db(databaseName).collection(collectionName);
+// //       const db = client.db(databaseName);
+// //       const collection = db.collection(collectionName)
+// //       collection.find({}).toArray(function(err, result) {
+// //          if (err) throw err;
+// //             console.log(result);
+// //          client.close();
+// //       });
+
+// //       res.render('artists');
+// //   });
+//  // res.render('artists');
+
+//     let Artists = mod.getall();
+//    //  console.log("All artists:")
+//     console.log(Artists);
+//     res.render('artists', {artist: Artists });
+// });
 
 // Renders the add form handlebars
-router.get('/artist/add', (req,res) => {
-    res.render('artistadd');
- });
+// router.get('/artist/add', (req,res) => {
+//     res.render('artistadd');
+//  });
 
 
  // QUERY?? 
@@ -129,35 +127,36 @@ router.post('/artists/search', (req,res) => {
 
      let count = mod.count;
 
-    let aOject = {
+    let aObject = {
        id: count,
        name: a_name,
        about: a_about,
        imageurl: a_imageURL
     }
 
-    client.connect((err) => {
-      assert.equal(null, err);
-      console.log("DB connection established.");
-      const db = client.db(databaseName);
+   //    client.connect((err) => {
+   //    assert.equal(null, err);
+   //    console.log("DB connection established.");
+   //    const db = client.db(databaseName);
       
-      db.collection(collectionName).insertOne(aOject, (err) => {
-          if (err) {
-              console.log("post error");
-              console.log(err);
-              res.sendStatus(500);
-          } else {
-              console.log("post successful");
-              res.sendStatus(200);
+   //    db.collection(collectionName).insertOne(aObject, (err) => {
+   //        if (err) {
+   //            console.log("post error");
+   //            console.log(err);
+   //            res.sendStatus(500);
+   //        } else {
+   //            console.log("post successful");
+   //            //res.sendStatus(200);
+   //            res.redirect(301, '/artists');
               
-          }
-      });
-   });
+   //        }
+   //    });
+   // });
 
    // NEED THIS ANYMORE???? vvvv
-   //  mod.add(aOject);
+    mod.add(aObject);
 
-    //console.log(mod.getall());
+    console.log(mod.getall());
     res.redirect(301, '/artists');
 
     // NEED THIS ANYMORE??? ^^^^
