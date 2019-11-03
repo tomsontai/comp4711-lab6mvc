@@ -1,5 +1,6 @@
 //const express = require('express');
 //et app = express();
+const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
 
@@ -155,7 +156,7 @@ function deleteArtist(id) {
         else {
             console.log("Successfully connected to db");
             let dbo = db.db(databaseName);
-            let myquery = { _id: id };
+            let myquery = { _id: new mongodb.ObjectId(id) };
             dbo.collection(collectionName).deleteOne(myquery, function(err, obj){
                 if (err) throw err;
                 console.log("1 document deleted");
