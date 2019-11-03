@@ -39,7 +39,7 @@ router.get('/artists', artistController.getAllArtists);
 
 router.get('/artist/add', artistController.getAddArtist);
 
-router.post('/artists', artistController.postAddArtist);
+router.post('/artist/add', artistController.postAddArtist);
 
 // Search not working ?
 router.post('/artists/search', artistController.searchArtist);

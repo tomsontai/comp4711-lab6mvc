@@ -53,7 +53,7 @@ exports.postAddArtist = (req, res, next) => {
    // NEED THIS ANYMORE???? vvvv
     artistModel.add(aObject);
 
-    console.log(artistModel.getall());
+    // console.log(artistModel.getall());
     res.redirect(301, '/artists');
 
     // NEED THIS ANYMORE??? ^^^^

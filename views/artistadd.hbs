@@ -1,10 +1,12 @@
 <main> 
     <div id="inputForm">
-        <form id="inputFormId" action = "/artists" method = "POST">
+        <form id="inputFormId" action = "/artist/add" method = "POST">
             <input maxlength="40" type="text" placeholder="Artist Name" name="name" id="name" value='Josh' /> <br>
             <input maxlength="40" type="text" placeholder="About artist" name="about" id="about" value='Best of the season' />  <br>
             <input type="text" placeholder="Image url" name="imageURL" id="imageURL" value='https://randomuser.me/api/portraits/med/men/65.jpg' /><br>
-            <button type="submit" onclick="setArtistDataToPOST()">Add</button>
+            {{!-- <button type="submit" onclick="setArtistDataToPOST()">Add</button> --}}
+            <button type="submit">Add</button>
+
         </form>
     </div> 
 </main>
