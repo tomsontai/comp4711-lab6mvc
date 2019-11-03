@@ -2,10 +2,14 @@ let artistModel = require("../models/artistData");
 
 exports.getAllArtists = (req, res, next) => {
     //let Artists = artistModel.getall();
-    artistModel.getall( function(Artists) {
-        console.log("All artists:")
-        console.log(Artists);
-        res.render('artists', {artist: Artists });
+    artistModel.getall( function(err, Artists) {
+        if (err){
+            console.log("Error! : " + err);
+        } else {
+            console.log("All artists:")
+            console.log(Artists);
+            res.render('artists', {artist: Artists });
+        }
     } );
  }
 

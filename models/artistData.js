@@ -38,8 +38,12 @@ var findArtists = function(db, callback) {
     client.connect(err => { 
         collection = client.db(databaseName).collection(collectionName);
         collection.find().toArray(function(err, artists) {
+            if (err) {
+                return callback(err);
+            } else {
             //console.log(artists);
-            callback(artists);
+                return callback(artists);
+            }
         });
     });
 }
@@ -100,19 +104,19 @@ function getAllArtists(callback) {
     //var artistlist;
     //var artists;
     MongoClient.connect(uri, function(err, db) {
-        console.log("Connected successfully to DB");
-        findArtists(db, function(artists) {
-            //console.log("Find artists:");
-            //artistlist = JSON.parse(JSON.stringify (artists));
-            console.log(artists);
-            callback(artists);
-            db.close();
-        });
-    })
-    //console.log("GetAllArtists");
-    //console.log(artists);
-    //return artists;
- //   return a;
+        if (err) {
+            return callback(err);
+        } else {
+            console.log("Connected successfully to DB");
+            findArtists(db, function(artists) {
+                //console.log("Find artists:");
+                //artistlist = JSON.parse(JSON.stringify (artists));
+                console.log(artists);
+                callback(null, artists);
+                db.close();
+            });
+        }
+    });
 }
 
 function getArtist(id) {
@@ -155,7 +159,6 @@ module.exports = {
 }
 
 function setArtistDataToPOST() {
-    let tempScore = localStorage.Score;
     let artistName = document.getElementById("name").value;
     let artistAbout = document.getElementById("about").value;
     let artistImageURL = document.getElementById("imageURL").value;
@@ -168,7 +171,7 @@ function setArtistDataToPOST() {
             'Content-Type': 'application/json'
         }, 
         body: JSON.stringify(artistData)
-    };
+    };s
 
     fetch('/artists', options);
     // window.location.href = "leaderboard.html";
