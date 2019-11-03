@@ -3,40 +3,8 @@ let app = express();
 let mod = require('../models/artistData');
 let artistController = require("../controllers/artist");
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
-
-
 const router = express.Router();
-const client = new MongoClient(uri, { 
-   useUnifiedTopology: true,
-   useNewUrlParser: true
- });
 
- 
-
- const assert = require("assert");
- const mongoose = require('mongoose');
- 
- //DB name
- const databaseName = "artistapp";
- 
- //Collection name
- const collectionName = "artists";
- 
- client.connect(err => {
-   const collection = client.db(databaseName).collection(collectionName);
-   // perform actions on the collection object
-   client.close();
- });
- 
- // connect Mongoose to your DB
- mongoose.connect(uri, 
-   {
-       useUnifiedTopology: true,
-       useNewUrlParser: true
-   }
- );
  
  //Middleware
  app.use(function (req, res, next) {
@@ -52,17 +20,20 @@ router.get('/', function (req,res) {
    res.redirect(301, '/artists');
 });
 
-router.get('/delete/:id', (req,res) => {
-   console.log("============Get Delete Artist=================");
-   console.log(req.params.id);
-   let id = Number(req.params.id);
-   mod.delete(id); 
+// router.get('/delete/:id', (req,res) => {
+//    console.log("============Get Delete Artist=================");
+//    console.log(req.params.id);
+//    let id = Number(req.params.id);
+//    mod.delete(id); 
 
-   // console.log(mod.getall());
-   res.redirect(301, '/artists');
+//    // console.log(mod.getall());
+//    res.redirect(301, '/artists');
+// });
+
+
+router.get('/', function (req,res) {
+  res.redirect(301, '/artists');
 });
-
-
 
 router.get('/artists', artistController.getAllArtists);
 

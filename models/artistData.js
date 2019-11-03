@@ -1,3 +1,57 @@
+//const express = require('express');
+//et app = express();
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
+
+
+//const router = express.Router();
+const client = new MongoClient(uri, { 
+   useUnifiedTopology: true,
+   useNewUrlParser: true
+ });
+
+ 
+
+ const assert = require("assert");
+ const mongoose = require('mongoose');
+ 
+ //DB name
+ const databaseName = "artistapp";
+ 
+ //Collection name
+ const collectionName = "artists";
+ 
+//  client.connect(err => {
+//    const collection = client.db(databaseName).collection(collectionName);
+//    // perform actions on the collection object
+//    client.close();
+//  });
+ 
+//  // connect Mongoose to your DB
+//  mongoose.connect(uri, 
+//    {
+//        useUnifiedTopology: true,
+//        useNewUrlParser: true
+//    }
+//  );
+var findArtists = function(db, callback) {
+    client.connect(err => { 
+        collection = client.db(databaseName).collection(collectionName);
+        collection.find().toArray(function(err, artists) {
+            //console.log(artists);
+            callback(artists);
+        });
+    });
+}
+
+// MongoClient.connect(uri, function(err, db) {
+//     console.log("Connected successfully to DB");
+//     findArtists(db, function() {
+//         db.close();
+//     });
+// })
+
+
 let a = [];
 let count = 0;
 
@@ -42,8 +96,23 @@ function addArtists(e) {
     // });
 }
 
-function getAllArtists() {
-    return a;
+function getAllArtists(callback) {
+    //var artistlist;
+    //var artists;
+    MongoClient.connect(uri, function(err, db) {
+        console.log("Connected successfully to DB");
+        findArtists(db, function(artists) {
+            //console.log("Find artists:");
+            //artistlist = JSON.parse(JSON.stringify (artists));
+            console.log(artists);
+            callback(artists);
+            db.close();
+        });
+    })
+    //console.log("GetAllArtists");
+    //console.log(artists);
+    //return artists;
+ //   return a;
 }
 
 function getArtist(id) {
@@ -57,23 +126,22 @@ function getCount() {
 }
 
 function deleteArtist(id) {
-    //for (var i = a.length; i--;) {
-    // for (var i = 0; i < a.length; i++) {
-    //     if (a[i].id == id) {
-    //         a.splice(i, 1);
-    //     }
-    // }
+     for (var i = 0; i < a.length; i++) {
+        if (a[i].id == id) {
+            a.splice(i, 1);
+        }
+    }
  }
 
  function searchArtists(matchString) {
-    // let arr = [];
-    // for (var i = 0; i < a.length; i++) {
-    //      if (a[i].name.toUpperCase().indexOf(matchString.toUpperCase()) !== -1) {
-    //          arr.push(a[i]);
-    //     }
-    // }
+    let arr = [];
+    for (var i = 0; i < a.length; i++) {
+         if (a[i].name.toUpperCase().indexOf(matchString.toUpperCase()) !== -1) {
+             arr.push(a[i]);
+        }
+    }
     
-    // return arr;
+    return arr;
  }
 
 module.exports = {
