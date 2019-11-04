@@ -1,9 +1,22 @@
-<form action="POST"> 
-    Username:<br>
-    <input type="text" id="usernameid" value="Mickey">
-    <br>
-    Last name:<br>
-    <input type="text" id="passwordid" value="Mouse">
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
+<!DOCTYPE html>
+    <head>
+        <title>COMP 4711 Lab 5 - A01031961, Tomson Tai</title>
+        <!-- References a Handlebars partial in views/partials/head.handlebars -->
+        {{>head}}
+        
+    </head>
+    
+    <body>
+
+    <form action = "/login" method="POST"> 
+        Username:<br>
+        <input type="text" id="usernameid" name="username" value="A01031961">
+        <br>
+        Last name:<br>
+        <input type="text" id="passwordid" name="password" value="password123">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>

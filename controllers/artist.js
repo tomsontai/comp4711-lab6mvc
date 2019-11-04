@@ -86,9 +86,12 @@ exports.login = (req, res, next) => {
     console.log("login");
     let username = req.body.username;
     let password = req.body.password;
+    console.log(username);
+    console.log(password);
     artistModel.login(username, password, function(err, user) {
-        // ?????
-    });
+        console.log(user);
+        res.render("home", {layout: 'main'});
+     });
 }
 
 exports.register = (req, res, next) => {

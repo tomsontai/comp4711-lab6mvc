@@ -219,7 +219,7 @@ function deleteArtist(id) {
  }
 
 function loginMethod(user, pass, callback) {
-    User.findOne({username: user, password: pass}, function(err, user) {
+    User.findOne({username: user}, function(err, user) {
         if (err) {
             console.log(err);
             callback(err);
@@ -228,9 +228,10 @@ function loginMethod(user, pass, callback) {
             console.log("user not found");
             callback(404);
         } 
-
-        callback(200);
-        
+        if (user.password === pass) 
+            callback(200, user);
+        else
+            callback(404);
     });
 }
 
