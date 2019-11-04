@@ -52,7 +52,8 @@ app.engine(
     'hbs',
     expressHbs({
       layoutsDir: 'views/layouts/',
-      defaultLayout: 'main',
+      // defaultLayout: 'main',
+      defaultLayout: 'login',
       extname: 'hbs'
     })
   );

@@ -17,7 +17,8 @@ const router = express.Router();
 mod.init();
 
 router.get('/', function (req,res) {
-   res.redirect(301, '/artists');
+  res.render('/login');
+  // res.redirect(301, '/artists');
 });
 
 // router.get('/delete/:id', (req,res) => {
@@ -45,6 +46,11 @@ router.post('/artist/add', artistController.postAddArtist);
 router.post('/artists/search', artistController.searchArtist);
 
 router.post('/delete/:id', artistController.deleteArtist);
+
+router.post('/login', artistController.login);
+
+router.post('/register', artistController.register); 
+
 
 // router.post('/delete/:id', (req,res) => {
 //    console.log("============Get Delete Artist=================");

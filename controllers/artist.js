@@ -1,4 +1,5 @@
 let artistModel = require("../models/artistData");
+let User = require("../lib/user");
 
 exports.getAllArtists = (req, res, next) => {
     //let Artists = artistModel.getall();
@@ -81,3 +82,34 @@ exports.searchArtist = (req, res, next) => {
     // res.redirect(301, '/artists');
 }
 
+exports.login = (req, res, next) => {
+    console.log("login");
+    let username = req.body.username;
+    let password = req.body.password;
+    artistModel.login(username, password, function(err, user) {
+        // ?????
+    });
+}
+
+exports.register = (req, res, next) => {
+    console.log("register");
+    let username = req.body.username;
+    let password = req.body.password;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+
+    let newUser = new User();
+    newUser.username = username;
+    newUser.password = password;
+    newUser.firstname = firstname;
+    newUser.lastname = lastname;
+
+    newUser.save(function(err, savedUser){
+        if (err) {
+            console.log(err);
+            return res.status(500).send();
+        } else {
+            return res.status(200).send();
+        }
+    })
+}

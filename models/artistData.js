@@ -11,7 +11,7 @@ const client = new MongoClient(uri, {
    useNewUrlParser: true
  });
 
- 
+ const User = require('../lib/user');
 
  const assert = require("assert");
  const mongoose = require('mongoose');
@@ -218,7 +218,24 @@ function deleteArtist(id) {
     // return arr;
  }
 
+function loginMethod(user, pass, callback) {
+    User.findOne({username: user, password: pass}, function(err, user) {
+        if (err) {
+            console.log(err);
+            callback(err);
+        }
+        if (!user) {
+            console.log("user not found");
+            callback(404);
+        } 
+
+        callback(200);
+        
+    });
+}
+
 module.exports = {
+    login: loginMethod,
     init : initializeArray,
     add : addArtists,
     getall : getAllArtists,
