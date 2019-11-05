@@ -94,7 +94,9 @@ exports.login = (req, res, next) => {
     console.log(password);
     artistModel.login(username, password, function(err, user) {
         console.log(user);
-        res.render("home", {layout: 'main'});
+        // res.render('artists', {artist: Artists });
+        res.redirect('/artists');
+        //res.render("artists", {layout: 'main'});
      });
 }
 
