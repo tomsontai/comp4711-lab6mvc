@@ -18,7 +18,8 @@ mod.init();
 
 // Commenting this out does not affect anything!
 router.get('/', function (req,res) {
-  res.render('/login');
+  // res.render('login');
+  res.redirect(301, 'login'); 
   // res.redirect(301, '/artists');
 });
 
@@ -49,6 +50,9 @@ router.post('/artists/search', artistController.searchArtist);
 router.post('/delete/:id', artistController.deleteArtist);
 
 router.post('/login', artistController.login);
+
+router.get('/login', artistController.getlogin);
+
 
 router.post('/register', artistController.register); 
 
