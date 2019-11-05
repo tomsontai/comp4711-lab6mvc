@@ -17,9 +17,7 @@ exports.getAddArtist = (req, res, next) => {
     res.render('artistadd');
 }
 
-exports.getlogin = (req, res, next) => {
-    res.render("home", {layout: 'login'});
-}
+
 
 exports.postAddArtist = (req, res, next) => {
     artistModel.add(function(err) {
