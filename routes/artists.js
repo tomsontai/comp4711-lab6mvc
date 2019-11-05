@@ -1,7 +1,8 @@
 const express = require('express');
 let app = express();
 let mod = require('../models/artistData');
-let artistController = require("../controllers/artist");
+let artistController = require("../controllers/ArtistController");
+let loginController = require("../controllers/LoginController");
 
 const router = express.Router();
 
@@ -49,12 +50,11 @@ router.post('/artists/search', artistController.searchArtist);
 
 router.post('/delete/:id', artistController.deleteArtist);
 
-router.post('/login', artistController.login);
+router.post('/login', loginController.login);
 
-router.get('/login', artistController.getlogin);
+router.get('/login', loginController.getlogin);
 
-
-router.post('/register', artistController.register); 
+router.post('/register', loginController.register); 
 
 
 // router.post('/delete/:id', (req,res) => {
@@ -166,4 +166,4 @@ router.post('/register', artistController.register);
 //     res.render('partials/404');
 // });
 
- module.exports = router;
+module.exports = router;

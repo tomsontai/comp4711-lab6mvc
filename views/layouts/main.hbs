@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>COMP 4711 Lab 5 - A01031961, Tomson Tai</title>
+        <title>COMP 4711 Lab 6 - A01031961, Tomson Tai</title>
         <!-- References a Handlebars partial in views/partials/head.handlebars -->
         {{>head}}
         
@@ -8,26 +8,25 @@
     
     <body>
 
+        <div class="jumbotron">
+            <a href="/login" class="btn logoutbutton">Log Out</a>
+        </div>
 
-
-
-    <!-- lab 4 due Oct 8th, next Tuesday at 11:59 pm -->
-
-    <div>
-        <form id="searchFormId" action = "/artists/search" method = "POST">
-            <p class="formTitle">Artist Directory</p>
-            <br>
-            <input type="text" name="name" class="aFormName" id="name"  > 
-            <a href="/artist/add" class="btn" >Add Artist</a>
-            {{!-- <a href="/artist/search">Search</a> --}}
-            <input type="submit" class="searchArtistClassButton btn" value="Search">
-        </form>
-    </div>
+        <div>
+            <form id="searchFormId" action = "/artists/search" method = "POST">
+                <p class="formTitle">Artist Directory</p>
+                <br>
+                <input type="text" name="name" class="aFormName" id="name"  > 
+                <a href="/artist/add" class="btn" >Add Artist</a>
+                {{!-- <a href="/artist/search">Search</a> --}}
+                <input type="submit" class="searchArtistClassButton btn" value="Search">
+            </form>
+        </div>
 
     {{artists}}
     {{{ body }}}
 
-    <a href="/login" class="btn logoutbutton">Log Out</a>
+    
     
 </body>
 </html>

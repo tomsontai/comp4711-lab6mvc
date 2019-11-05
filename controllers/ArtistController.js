@@ -1,5 +1,4 @@
 let artistModel = require("../models/artistData");
-let User = require("../lib/user");
 
 exports.getAllArtists = (req, res, next) => {
     //let Artists = artistModel.getall();
@@ -62,8 +61,8 @@ exports.deleteArtist = (req, res, next) => {
     // console.log(artistModel.getall());
     res.redirect(301, '/artists');
 }
-//5dbde85946e2d8881bd095f5,
-// SEARCH NOT WORKING !!!! 
+
+
 exports.searchArtist = (req, res, next) => {
     console.log("==== Search ====");
     let a_name = req.body.name;
@@ -79,62 +78,46 @@ exports.searchArtist = (req, res, next) => {
 
     });
 
-    
 
-    // res.render('artists', {artist: SearchResult });
-    //res.render('artistadd');
-    // res.redirect(301, '/artists');
 }
 
-exports.login = (req, res, next) => {
-    console.log("login");
-    let username = req.body.username;
-    let password = req.body.password;
-    console.log(username);
-    console.log(password);
-    artistModel.login(username, password, function(err, user) {
+// exports.login = (req, res, next) => {
+//     console.log("login");
+//     let username = req.body.username;
+//     let password = req.body.password;
+//     console.log(username);
+//     console.log(password);
+//     artistModel.login(username, password, function(err, user) {
         
-        console.log(user);
-        console.log(err);
-        if (err === 404) {
-            return res.redirect('/login');
-        } else 
-        // if (err) {
-        //     res.redirect('/login');
-        // }
-        // if (err) {
-        //     // alert("Error!");
-        //     res.render('login');
-        // }
-        // if (user == null) {
-        //     // alert("Username or password is incorrect!");
-        //     res.render('login');
-        // } else 
-        // res.render('artists', {artist: Artists });
-        res.redirect('/artists');
-        //res.render("artists", {layout: 'main'});
-     });
-}
+//         console.log(user);
+//         console.log(err);
+//         if (err === 404) {
+//             return res.redirect('/login');
+//         } else 
+       
+//         res.redirect('/artists');
+//      });
+// }
 
-exports.register = (req, res, next) => {
-    console.log("register");
-    let username = req.body.username;
-    let password = req.body.password;
-    let firstname = req.body.firstname;
-    let lastname = req.body.lastname;
+// exports.register = (req, res, next) => {
+//     console.log("register");
+//     let username = req.body.username;
+//     let password = req.body.password;
+//     let firstname = req.body.firstname;
+//     let lastname = req.body.lastname;
 
-    let newUser = new User();
-    newUser.username = username;
-    newUser.password = password;
-    newUser.firstname = firstname;
-    newUser.lastname = lastname;
+//     let newUser = new User();
+//     newUser.username = username;
+//     newUser.password = password;
+//     newUser.firstname = firstname;
+//     newUser.lastname = lastname;
 
-    newUser.save(function(err, savedUser){
-        if (err) {
-            console.log(err);
-            return res.status(500).send();
-        } else {
-            return res.status(200).send();
-        }
-    })
-}
+//     newUser.save(function(err, savedUser){
+//         if (err) {
+//             console.log(err);
+//             return res.status(500).send();
+//         } else {
+//             return res.status(200).send();
+//         }
+//     })
+// }
