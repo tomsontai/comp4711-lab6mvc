@@ -33,9 +33,9 @@ router.get('/', function (req,res) {
 // });
 
 // THIS does not redirect anywhere ... 
-router.get('/', function (req,res) {
-   res.redirect(301, '/login'); 
-});
+// router.get('/', function (req,res) {
+//    res.redirect(301, '/login'); 
+// });
 
 router.get('/artists', artistController.getAllArtists);
 
