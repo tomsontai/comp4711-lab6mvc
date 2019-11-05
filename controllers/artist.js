@@ -93,7 +93,23 @@ exports.login = (req, res, next) => {
     console.log(username);
     console.log(password);
     artistModel.login(username, password, function(err, user) {
+        
         console.log(user);
+        console.log(err);
+        if (err === 404) {
+            return res.redirect('/login');
+        } else 
+        // if (err) {
+        //     res.redirect('/login');
+        // }
+        // if (err) {
+        //     // alert("Error!");
+        //     res.render('login');
+        // }
+        // if (user == null) {
+        //     // alert("Username or password is incorrect!");
+        //     res.render('login');
+        // } else 
         // res.render('artists', {artist: Artists });
         res.redirect('/artists');
         //res.render("artists", {layout: 'main'});

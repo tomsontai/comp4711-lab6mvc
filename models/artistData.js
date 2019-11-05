@@ -4,7 +4,6 @@ const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
 
-
 //const router = express.Router();
 const client = new MongoClient(uri, { 
    useUnifiedTopology: true,
@@ -222,16 +221,16 @@ function loginMethod(user, pass, callback) {
     User.findOne({username: user}, function(err, user) {
         if (err) {
             console.log(err);
-            callback(err);
+            return callback(err);
         }
         if (!user) {
             console.log("user not found");
-            callback(404);
+            return callback(404);
         } 
         if (user.password === pass) 
-            callback(200, user);
+            return callback(200, user);
         else
-            callback(404);
+            return callback(404);
     });
 }
 
