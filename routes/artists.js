@@ -16,6 +16,7 @@ const router = express.Router();
 
 mod.init();
 
+// Commenting this out does not affect anything!
 router.get('/', function (req,res) {
   res.render('/login');
   // res.redirect(301, '/artists');
@@ -31,10 +32,10 @@ router.get('/', function (req,res) {
 //    res.redirect(301, '/artists');
 // });
 
-
-router.get('/', function (req,res) {
-  res.redirect(301, '/artists');
-});
+// THIS does not redirect anywhere ... 
+// router.get('/', function (req,res) {
+//    res.redirect(301, '/artists'); 
+// });
 
 router.get('/artists', artistController.getAllArtists);
 

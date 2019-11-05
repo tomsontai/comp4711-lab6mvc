@@ -4,8 +4,14 @@ let fs = require("fs");  
 let bodyParser = require('body-parser');
 let multer = require('multer');
 let path = require('path');
+
+// for user login:
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
+const auth = require('./lib/auth');
 const expressHbs = require('express-handlebars');
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://ktai8:l6mHXsvbPiRJZbkF@cluster0-ag0ai.mongodb.net/test?retryWrites=true&w=majority";
 
@@ -52,8 +58,8 @@ app.engine(
     'hbs',
     expressHbs({
       layoutsDir: 'views/layouts/',
-      // defaultLayout: 'main',
-      defaultLayout: 'login',
+      defaultLayout: 'main',
+      // defaultLayout: 'login',
       extname: 'hbs'
     })
   );
@@ -62,6 +68,21 @@ app.engine(
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })) // middleware
+
+// Parsing cookies
+app.use(cookieParser());
+
+app.use(session({
+  secret: 'very secret 12345',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+}));
+
+app.use(auth.initialize);
+app.use(auth.session);
+app.use(auth.setUser);
+
 
 // parse application/json
 app.use(bodyParser.json()) // middleware
