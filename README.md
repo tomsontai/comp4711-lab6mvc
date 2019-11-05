@@ -1,1 +1,1 @@
-https://comp4711lab5artistsapp.herokuapp.com
+https://comp4711-lab6mvc.herokuapp.com/
